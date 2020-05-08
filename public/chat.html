@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Chat App</title>
+    <link rel="icon" href="/img/favicon.png">
+    <link rel="stylesheet" href="/css/styles.min.css"><!-- styles.min.css is loads faster than styles.css -->
+</head>
+
+<body>
+    <div class="chat">
+        <div id="sidebar" class="chat__sidebar"></div>
+        <div class="chat__main">
+            <div id="messages" class="chat__messages"></div>
+            <div class="compose">
+                <form id="message-form">
+                    <input name="message" placeholder="Your message" required autocomplete="off">
+                    <button>Send</button>
+                </form>
+                <button id="send-location">Send location</button>
+            </div>
+        </div>
+    </div>
+    <!-- Template for displaying text message -->
+    <script id="message-template" type="text/html">
+        <div class="message">
+            <p>
+                <span class="message__name">{{username}}</span>
+                <span class="message__meta">{{createdAt}}</span>
+            </p>
+            <p>{{message}}</p>
+            </div>
+    </script>
+    <!-- Template for displaying location hyperlink -->
+    <script id="location-template" type="text/html">
+        <div class="message">
+            <p>
+                <span class="message__name">{{username}}</span>
+                <span class="message__meta">{{createdAt}}</span>
+            </p>
+            <p><a href="{{url}}" target="_blank">My current location</a></p>
+            </div>
+    </script>
+
+  
+    <!-- Template for displaying sidebar -->
+    <script id="sidebar-template" type="text/html"><!-- Create template in chat.js -->
+   
+        <h1 class="room-title">{{room}}</h1>
+    <h1 class="list-title">Users</h1>
+    <ul class="users">
+        <!-- Below we have array open n closing, in b/w we can access array of objects -->
+        {{#users}}
+        <li>{{username}}</li>
+        {{/users}}
+    </ul>
+
+    </script>
+
+   
+   
+    <!-- Define new script tags n load in 3 libraries from 'http://links.mead.io/chatlibs', use mustache.js for now -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script><!-- qs - query string -->
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="/js/chat.js"></script><!-- This file acces to the library -->
+</body>
+
+</html>
